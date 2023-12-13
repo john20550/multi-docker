@@ -16,3 +16,12 @@ after_success:
    - docker build -t traning2/multi-server ./server
    - docker build -t traning2/multi-worker ./worker
    
+# Log in to the docker CLI
+  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
+
+ # Take those images and push them to docker hub
+  - docker push traning2/multi-client
+  - docker push traning2/multi-nginx
+  - docker push traning2/multi-server
+  - docker push traning2/multi-worker
+   
