@@ -7,6 +7,7 @@ services:
   redis:
     image: "redis:latest"
   nginx:
+    image: traning2/multi-nginx
     depends_on:
       - api
       - client
@@ -17,6 +18,7 @@ services:
     ports:
       - "3050:80"
   api:
+    image: traning2/multi-server
     build:
       dockerfile: Dockerfile.dev
       context: ./server
@@ -32,6 +34,7 @@ services:
       - PGPASSWORD=postgres_password
       - PGPORT=5432
   client:
+    image: traning2/multi-client
     environment:
       - WDS_SOCKET_PORT=0
     build:
@@ -41,6 +44,7 @@ services:
       - /home/node/app/node_modules
       - ./client:/home/node/app
   worker:
+    image: traning2/multi-worker
     build:
       dockerfile: Dockerfile.dev
       context: ./worker
